@@ -33,6 +33,21 @@ Trip.findById(req.params.id,(err,foundtrip) => {
 res.send(foundtrip);
 });
 });
+///adding placesto visit
+router.post('/user/place/:id', (req,res) => {
+Trip.findById(req.params.id,(err,foundtrip) => {
+  foundtrip.places_to_visit.push(req.body);
+res.send(foundtrip);
+});
+});
+///adding thingstoPack for trip
+router.post('/user/pack/:id', (req,res) => {
+Trip.findById(req.params.id,(err,foundtrip) => {
+  foundtrip.things_to_pack.push(req.body);
+res.send(foundtrip);
+});
+});
+
 
 
 
