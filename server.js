@@ -1,6 +1,7 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
+const mongoose = require('mongoose');
+
 const db = mongoose.connection;
 
 app.use(express.static('public'));
@@ -11,8 +12,20 @@ const PORT = process.env.PORT;
 const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
 
 
+const passport = require('passport');
+const session = require('express-session');
+
+app.use(express.static('public'))
+app.use(passport.initialize());
+app.use(passport.session());
+
+///routes setup/////////////////
+////for google authentication
+const authController = require('./controllers/auth.js');
+app.use('/auth', authController);
+
 const tripsController = require('./controllers/trips.js');
-app.use('/trips' , tripsController);
+app.use('/trips', tripsController);
 
 mongoose.connect(MONGODB_URI, {
 	useNewUrlParser: true,

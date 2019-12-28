@@ -9,11 +9,7 @@ Trip.findById('5dfc1245d3f59b0fa4bf1125',(err,all)=>{
 })
 
 router.post('/', (req,res) => {
-  Todo.create(req.body.things_to_do,(error,createdTodo) =>{
-    if(!error){
-    //  req.body.things_to_do={};
-      req.body.things_to_do = createdTodo;
-      console.log(req.body);
+
     Trip.create(req.body,(error,createdTrip) =>{
       if(!error)
       res.send(createdTrip);
@@ -21,10 +17,7 @@ router.post('/', (req,res) => {
       res.send(error);
     })
   }
-    else
-    res.send(error);
-  })
-})
+)
 
 ///adding todos
 router.post('/user/todo/:id', (req,res) => {
@@ -33,6 +26,7 @@ Trip.findById(req.params.id,(err,foundtrip) => {
 res.send(foundtrip);
 });
 });
+
 ///adding placesto visit
 router.post('/user/place/:id', (req,res) => {
 Trip.findById(req.params.id,(err,foundtrip) => {
@@ -40,6 +34,7 @@ Trip.findById(req.params.id,(err,foundtrip) => {
 res.send(foundtrip);
 });
 });
+
 ///adding thingstoPack for trip
 router.post('/user/pack/:id', (req,res) => {
 Trip.findById(req.params.id,(err,foundtrip) => {
@@ -47,6 +42,8 @@ Trip.findById(req.params.id,(err,foundtrip) => {
 res.send(foundtrip);
 });
 });
+
+
 
 
 
