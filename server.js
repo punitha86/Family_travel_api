@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT;
 const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
 const passport = require('passport');
-const session = require('express-session');
-
+const cookieSession = require('cookie-session');
+const keys=require('./config/keys');
 
 app.use('*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", "*");
@@ -32,6 +32,16 @@ app.use(cors({origin: "*"}));
 app.use(express.static('public'))
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.use(cookieSession({
+	maxAge: 24 * 3600 * 1000,
+	keys: [keys.session.cookieKey]
+}));
+//initialize passportSetup
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 ///routes setup/////////////////
 ////for google authentication
