@@ -5,7 +5,6 @@ const Todo= require('../models/todo.js');
 
 //populating all trips
 router.get('/', (req,res) => {
-  console.log(req.session.user);
   Trip.find({},(err,all)=>{
     res.json(all);
   })
@@ -46,9 +45,26 @@ res.json(foundtrip);
 });
 });
 
+///updating trips
+router.put('/update/:id', (req, res) => {
+  Trip.findByIdAndUpdate(req.params.id, req.body, {
+    new: true
+  }, (error, updatedTrip) => {
+		console.log('updated trip',updatedTrip);
+    res.json(updatedTrip);
 
+  });
+});
 
+///deleting trips
 
+router.delete('/:id', (req, res) => {
+  console.log('Entered DELETE route for Trips');
+  Trip.findByIdAndRemove(req.params.id, (error, deletedTrip) => {
+    console.log('Found and deleting trip: ' + deletedTrip);
+    res.json(deletedTrip);
+  });
+});
 
 
 module.exports = router;
