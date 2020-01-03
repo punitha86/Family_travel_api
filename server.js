@@ -37,7 +37,7 @@ app.use(
 );
 app.use(
 	session({
-		secret: process.env.APP_SECRET || 'this is the default passphrase',
+		secret:  'this is the default passphrase',
 		store: new MongoStore({ mongooseConnection: db }),
 		resave: false,
 		saveUninitialized: false
@@ -57,7 +57,8 @@ if (process.env.NODE_ENV === 'production') {
 	console.log('YOU ARE IN THE PRODUCTION ENV')
 	app.use('/static', express.static(path.join(__dirname, '../build/static')))
 	app.get('/', (req, res) => {
-		res.sendFile(path.join(__dirname, '../build/'))
+		res.send("You are accessing the API");
+		//res.sendFile(path.join(__dirname, '../build/'))
 	})
 }
 ///routes setup/////////////////
