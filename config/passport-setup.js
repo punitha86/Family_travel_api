@@ -61,33 +61,7 @@ passport.use(new GoogleStratergy({
   clientID: keys.google.clientID,
   clientSecret: keys.google.clientSecret
 }, (accessToken, refreshToken, profile, done) => {
-  //check if user already exists in database
-//   User.findOne({
-//     googleId: profile.id
-//   }).then((currentUser) => {
-//     if (currentUser) {
-//       //the user is alredy there
-//       console.log('user is:', currentUser);
-//       done(null, currentUser);
-//     } else {
-//       //we create a new user
-//       new User({
-//         username: profile.displayName,
-//         googleId: profile.id,
-//         googleImg:profile._json.picture
-//       }).save().then((newUser) => {
-//         console.log('new user created', newUser);
-//         done(null, newUser);
-//       })
-//     }
-//   })
-//   //pass port call back function
-//   console.log('passport callback function');
-//   console.log(profile);
-//   console.log(accessToken);
-//
-//
-// }
+
 // testing
 		console.log('===== GOOGLE PROFILE =======')
 		console.log(profile)

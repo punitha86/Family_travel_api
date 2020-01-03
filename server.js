@@ -6,14 +6,16 @@ const db = mongoose.connection;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT;
-const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
+//require('dotenv').config();
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/family_travel';
+//const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const morgan = require('morgan');
 const keys=require('./config/keys');
 
-app.use('*', function(req, res, next) {
+app.use('/*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", "*");
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -80,12 +82,19 @@ db.on('error', (error) => console.log(error.message));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 
-/////Error handler ///////
-app.use(function(err, req, res, next) {
-	console.log('====== ERROR =======')
-	console.error(err.stack)
-	res.status(500)
-})
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  var err = new Error('File Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+// define as the last app.use callback
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.send(err.message);
+});
 
 ///Server////
-app.listen(4500, () => console.log('Listening...'));
+app.listen(PORT, () => console.log('Listening...'));
