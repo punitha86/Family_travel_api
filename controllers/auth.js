@@ -35,23 +35,23 @@ scope:['profile']
 router.get(
           '/google/redirect',
           (req, res, next) => {
-        		console.log(`req.user: ${req.user}`,res.user)
+        		console.log(`req.user: ${req.user}`)
         		console.log('======= /auth/google/redirect was called! =====')
         		next()
         	},
           passport.authenticate('google',
             {
-              successRedirect:'http://localhost:3000/',
+              //successRedirect:'http://localhost:3000/',
             failureRedirect:'http://localhost:3000/login'}
           )
-        //  ,(req,res)=>{
-//   //res.send(req.user);
-//  res.user=req.session.passport.user;
- //console.log('session object',req.user,'session object');
-//
-//  res.redirect('http://localhost:3000/');
-//   //res.json(req.user);
-//}
+         ,(req,res)=>{
+  //res.send(req.user);
+ //res.user=req.session.passport.user;
+ console.log('session object',req.user,'session object');
+
+ res.redirect('http://localhost:3000/');
+  //res.json(req.user);
+}
 )
 
 // this route is just used to get the user basic info
