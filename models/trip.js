@@ -8,7 +8,7 @@ const tripSchema = new mongoose.Schema({
     date:  { type: String},
     length_of_stay: {type : Number},
     things_to_do :[Todo.schema],
-    user_id:{type: String},
+    user_id: {type: String},
     things_to_pack :[Pack.schema],
     places_to_visit :[Place.schema]
 
