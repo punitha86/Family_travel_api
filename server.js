@@ -14,7 +14,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const morgan = require('morgan');
 const keys=require('./config/keys');
-
+let server="familytravelreact.herokuapp.com"
+const ws = new WebSocket("wss://" + server);
 app.all('/*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", "*");
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
