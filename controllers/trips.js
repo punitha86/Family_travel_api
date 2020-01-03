@@ -9,6 +9,13 @@ router.get('/', (req,res) => {
     res.json(all);
   })
 })
+//populating trip by id
+router.get('/:id', function(req, res, next) {
+  Trip.findById(req.params.id, function (err, trip) {
+    if (err) return next(err);
+    res.json(trip);
+  });
+});
 
 //adding a new trip
 router.post('/', (req,res) => {
@@ -46,7 +53,7 @@ res.json(foundtrip);
 });
 
 ///updating trips
-router.put('/update/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   Trip.findByIdAndUpdate(req.params.id, req.body, {
     new: true
   }, (error, updatedTrip) => {
@@ -57,13 +64,16 @@ router.put('/update/:id', (req, res) => {
 });
 
 ///deleting trips
-
 router.delete('/:id', (req, res) => {
   console.log('Entered DELETE route for Trips');
   Trip.findByIdAndRemove(req.params.id, (error, deletedTrip) => {
     console.log('Found and deleting trip: ' + deletedTrip);
-    res.json(deletedTrip);
-  });
+    //res.json(deletedTrip);
+  }).then((tripsAfterDelete) => {
+    Trip.find({},(err,all)=>{
+      res.json(all);
+    })
+  })
 });
 
 
