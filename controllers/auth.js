@@ -42,14 +42,14 @@ router.get(
           passport.authenticate('google',
             {
               //successRedirect:'http://localhost:3000/',
-            failureRedirect:'http://localhost:3000/login'}
+            failureRedirect:'https://familytravelreact.herokuapp.com/login'}
           )
          ,(req,res)=>{
   //res.send(req.user);
  //res.user=req.session.passport.user;
  console.log('session object',req.user,'session object');
 
- res.redirect('http://localhost:3000/');
+ res.redirect('https://familytravelreact.herokuapp.com/');
   //res.json(req.user);
 }
 )
@@ -75,7 +75,7 @@ router.post(
 	passport.authenticate('local'),
 	(req, res) => {
 		console.log('POST to /login')
-		const user = JSON.parse(JSON.stringify(req.user)) // hack
+		const user = JSON.parse(JSON.stringify(req.user)) 
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
 			console.log(`Deleting ${cleanUser.local.password}`)
