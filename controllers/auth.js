@@ -7,7 +7,7 @@ const User = require('../models/user.js');
 
 
 router.use('*', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+res.header("Access-Control-Allow-Origin", "http://familytravelreact.herokuapp.com");
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 res.header('Access-Control-Allow-Credentials', true);
@@ -75,7 +75,7 @@ router.post(
 	passport.authenticate('local'),
 	(req, res) => {
 		console.log('POST to /login')
-		const user = JSON.parse(JSON.stringify(req.user)) 
+		const user = JSON.parse(JSON.stringify(req.user))
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
 			console.log(`Deleting ${cleanUser.local.password}`)
