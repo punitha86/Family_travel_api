@@ -4,10 +4,11 @@ const router = express.Router();
 const passport = require('passport');
 const cors = require('cors');
 const User = require('../models/user.js');
-
-
+//const CLIENT_URL="http://familytravelreact.herokuapp.com";
+const CLIENT_URL="http://localhost:3000";
+let val;
 router.use('*', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "http://familytravelreact.herokuapp.com");
+res.header("Access-Control-Allow-Origin", CLIENT_URL);
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 res.header('Access-Control-Allow-Credentials', true);
@@ -41,15 +42,16 @@ router.get(
         	},
           passport.authenticate('google',
             {
-              //successRedirect:'http://localhost:3000/',
-            failureRedirect:'https://familytravelreact.herokuapp.com/login'}
+            successRedirect:'http://localhost:3000/',
+            failureRedirect:CLIENT_URL+'/login'}
           )
          ,(req,res)=>{
   //res.send(req.user);
  //res.user=req.session.passport.user;
- console.log('session object',req.user,'session object');
-
- res.redirect('https://familytravelreact.herokuapp.com/');
+ console.log('session object',req.session,'session object');
+val=req.session.passport.user;
+console.log('response sent to react application',res.req.user);
+// res.redirect(CLIENT_URL);
   //res.json(req.user);
 }
 )
@@ -57,9 +59,10 @@ router.get(
 // this route is just used to get the user basic info
 router.get('/user', (req, res, next) => {
 	console.log('===== reaching this /user path!!======')
-	console.log(req.user)
+	console.log(req._passport);
 	if (req.user) {
 		return res.json({ user: req.user })
+    //return res.redirect(CLIENT_URL);
 	} else {
 		return res.json({ user: null })
 	}

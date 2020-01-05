@@ -5,19 +5,17 @@ const passportSetup=require('./config/passport-setup.js')
 const db = mongoose.connection;
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT;
+const PORT = 4500;
 //require('dotenv').config();
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/family_travel';
 //const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const morgan = require('morgan');
 const keys=require('./config/keys');
-let server="familytravelreact.herokuapp.com"
-const ws = new WebSocket("wss://" + server);
+
 app.all('/*', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 res.header('Access-Control-Allow-Credentials', true);
@@ -25,7 +23,7 @@ next();
 });
 
 //enable pre-flight
-app.options('*', cors());
+app.options('http://localhost:3000', cors());
 // app.use(express.static('public'));
 app.use(express.json());
 
@@ -38,30 +36,37 @@ app.use(
 );
 app.use(
 	session({
-		secret:  'this is the default passphrase',
+		secret: 'testingtheencryption',
 		store: new MongoStore({ mongooseConnection: db }),
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
+		cookie: { httpOnly: false },
+		samesite:false
 	})
 );
+app.use(express.static('public'));
 //support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({origin: "*"}));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({origin: "http://localhost:3000"}));
 //initialize passportSetup
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 
-if (process.env.NODE_ENV === 'production') {
-	const path = require('path')
-	console.log('YOU ARE IN THE PRODUCTION ENV')
-	app.use('/static', express.static(path.join(__dirname, '../build/static')))
-	app.get('/', (req, res) => {
-		res.send("You are accessing the API");
-		//res.sendFile(path.join(__dirname, '../build/'))
-	})
-}
+// if (process.env.NODE_ENV === 'production') {
+// 	const path = require('path')
+// 	console.log('YOU ARE IN THE PRODUCTION ENV')
+// 	app.use('/static', express.static(path.join(__dirname, '../build/static')))
+// 	app.get('/', (req, res) => {
+// 		res.send("You are accessing the API");
+// 		//res.sendFile(path.join(__dirname, '../build/'))
+// 	})
+// }
+app.get('/', (req, res) => {
+	res.send("You are accessing the API");
+	//res.sendFile(path.join(__dirname, '../build/'))
+})
 ///routes setup/////////////////
 ////for google authentication
 const authController = require('./controllers/auth.js');
@@ -99,4 +104,4 @@ app.use(function (err, req, res, next) {
 });
 
 ///Server////
-app.listen(PORT, () => console.log('Listening...'));
+app.listen(PORT, () => console.log('Listening...'+PORT));
