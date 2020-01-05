@@ -9,6 +9,12 @@ router.get('/', (req,res) => {
     res.json(all);
   })
 })
+//populating all trips
+router.get('/user/:userid', (req,res) => {
+  Trip.find({user_id:req.params.userid},(err,all)=>{
+    res.json(all);
+  })
+})
 //populating trip by id
 router.get('/:id', function(req, res, next) {
   Trip.findById(req.params.id, function (err, trip) {
