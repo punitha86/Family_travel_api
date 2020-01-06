@@ -10,7 +10,8 @@ const tripSchema = new mongoose.Schema({
     things_to_do :[Todo.schema],
     user_id: {type: String},
     things_to_pack :[Pack.schema],
-    places_to_visit :[Place.schema]
+    places_to_visit :{ type: String}
+    //[Place.schema]
 
 });
 
