@@ -7,7 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 ///serializing the cookie
 passport.serializeUser((user,done)=>{
   console.log('=== serialize ... called ===');
-  console.log(user) // the whole raw user object!
+  console.log(user)
 	console.log('---------')
 	done(null, { _id: user._id })
   // done(null, user.id);
@@ -34,7 +34,7 @@ User.findOne(
 
 passport.use (new LocalStrategy(
 	{
-		usernameField: 'username' 
+		usernameField: 'username'
 	},
 	function(username, password, done) {
 		User.findOne({ 'local.username': username }, (err, userMatch) => {
@@ -83,7 +83,7 @@ passport.use(new GoogleStratergy({
 				console.log('====== PRE SAVE =======')
 				console.log(id)
 				console.log(profile)
-				console.log('====== post save ....')
+				console.log('====== post save =======')
 				const newGoogleUser = new User({
 					'google.googleId': id,
 					firstName: name.givenName,

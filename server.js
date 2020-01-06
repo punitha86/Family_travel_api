@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const PORT = 4500;
 //require('dotenv').config();
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/family_travel';
-//const MONGODB_URI = 'mongodb://localhost:27017/family_travel';
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -54,18 +53,9 @@ app.use(passport.session());
 
 
 
-// if (process.env.NODE_ENV === 'production') {
-// 	const path = require('path')
-// 	console.log('YOU ARE IN THE PRODUCTION ENV')
-// 	app.use('/static', express.static(path.join(__dirname, '../build/static')))
-// 	app.get('/', (req, res) => {
-// 		res.send("You are accessing the API");
-// 		//res.sendFile(path.join(__dirname, '../build/'))
-// 	})
-// }
+
 app.get('/', (req, res) => {
 	res.send("You are accessing the API");
-	//res.sendFile(path.join(__dirname, '../build/'))
 })
 ///routes setup/////////////////
 ////for google authentication
@@ -105,3 +95,16 @@ app.use(function (err, req, res, next) {
 
 ///Server////
 app.listen(PORT, () => console.log('Listening...'+PORT));
+
+
+
+
+// if (process.env.NODE_ENV === 'production') {
+// 	const path = require('path')
+// 	console.log('YOU ARE IN THE PRODUCTION ENV')
+// 	app.use('/static', express.static(path.join(__dirname, '../build/static')))
+// 	app.get('/', (req, res) => {
+// 		res.send("You are accessing the API");
+// 		//res.sendFile(path.join(__dirname, '../build/'))
+// 	})
+// }

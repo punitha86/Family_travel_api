@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const packSchema = new mongoose.Schema({
-    name:String,
+    packName:String,
     completed: String,
     category: String
 
