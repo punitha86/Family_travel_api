@@ -12,6 +12,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const keys=require('./config/keys');
+const CLIENT_URL="http://familytravelreact.herokuapp.com";
 
 app.all('/*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -22,7 +23,7 @@ next();
 });
 
 //enable pre-flight
-app.options('http://localhost:3000', cors());
+app.options(CLIENT_URL, cors());
 // app.use(express.static('public'));
 app.use(express.json());
 
@@ -46,7 +47,7 @@ app.use(
 app.use(express.static('public'));
 //support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({origin: "http://localhost:3000"}));
+app.use(cors({origin: CLIENT_URL}));
 //initialize passportSetup
 app.use(passport.initialize());
 app.use(passport.session());

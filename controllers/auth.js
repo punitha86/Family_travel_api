@@ -4,8 +4,8 @@ const router = express.Router();
 const passport = require('passport');
 const cors = require('cors');
 const User = require('../models/user.js');
-//const CLIENT_URL="http://familytravelreact.herokuapp.com";
-const CLIENT_URL="http://localhost:3000";
+const CLIENT_URL="http://familytravelreact.herokuapp.com";
+//const CLIENT_URL="http://localhost:3000";
 let val;
 router.use('*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", CLIENT_URL);
