@@ -5,8 +5,9 @@ const passportSetup=require('./config/passport-setup.js')
 const db = mongoose.connection;
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const PORT = 4500;
-//require('dotenv').config();
+//const PORT = 4500;
+require('dotenv').config();
+const PORT = process.env.PORT;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/family_travel';
 const passport = require('passport');
 const session = require('express-session');
@@ -95,7 +96,7 @@ app.use(function (err, req, res, next) {
 });
 
 ///Server////
-app.listen(PORT, () => console.log('Listening...'+PORT));
+app.listen(PORT, () => console.log('Listening...',PORT));
 
 
 
