@@ -15,7 +15,7 @@ const keys=require('./config/keys');
 const CLIENT_URL="https://familytravelreact.herokuapp.com";
 
 app.all('/*', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+res.header("Access-Control-Allow-Origin", CLIENT_URL );
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 res.header('Access-Control-Allow-Credentials', true);
