@@ -4,7 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 const cors = require('cors');
 const User = require('../models/user.js');
-const CLIENT_URL="http://familytravelreact.herokuapp.com";
+const CLIENT_URL="https://familytravelreact.herokuapp.com";
 //const CLIENT_URL="http://localhost:3000";
 let val;
 router.use('*', function(req, res, next) {
@@ -42,7 +42,7 @@ router.get(
         	},
           passport.authenticate('google',
             {
-            successRedirect:'http://localhost:3000/',
+            successRedirect:CLIENT_URL,
             failureRedirect:CLIENT_URL+'/login'}
           )
          ,(req,res)=>{

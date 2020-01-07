@@ -12,7 +12,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const keys=require('./config/keys');
-const CLIENT_URL="http://familytravelreact.herokuapp.com";
+const CLIENT_URL="https://familytravelreact.herokuapp.com";
 
 app.all('/*', function(req, res, next) {
 res.header("Access-Control-Allow-Origin", "http://localhost:3000");
