@@ -48,7 +48,7 @@ app.use(
 app.use(express.static('public'));
 //support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({origin: CLIENT_URL}));
+app.use(cors({credentials: true,origin: CLIENT_URL}));
 //initialize passportSetup
 app.use(passport.initialize());
 app.use(passport.session());
