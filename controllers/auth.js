@@ -7,7 +7,7 @@ const User = require('../models/user.js');
 const CLIENT_URL="https://familytravelreact.herokuapp.com";
 //const CLIENT_URL="http://localhost:3000";
 let val;
-router.use('*', function(req, res, next) {
+router.use(CLIENT_URL, function(req, res, next) {
 res.header("Access-Control-Allow-Origin", CLIENT_URL);
 res.header("Access-Control-Allow-Headers", "X-Requested-With");
 res.header('Access-Control-Allow-Headers', 'Content-Type');
