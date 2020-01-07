@@ -16,7 +16,7 @@ next();
 });
 
 //enable pre-flight
-router.options('*', cors());
+router.options(CLIENT_URL, cors());
 router.options("/google", cors());
 
 router.get('/login',(req,res,next) => {
